@@ -31,7 +31,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Check ECR repository
-      run: aws ecr-public describe-repositories --repository-names $ECR_REPOSITORY --region us-east-1
+      run: aws ecr-public describe-repositories --region us-east-1
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
