@@ -68,5 +68,3 @@ jobs:
             -e DB_PORT=${{ env.DB_PORT }} \
             -e REDIS_HOST=${{ env.REDIS_HOST }} \
             ${{ env.ECR_REPOSITORY }}:latest
-        EOF
-
