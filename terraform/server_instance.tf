@@ -63,11 +63,51 @@ resource "aws_eip" "prod_eip" {
 }
 
 
+# Create IAM Role
+data "aws_iam_policy_document" "instance_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_policy" "s3_access" {
+  name = "policy-381966"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action   = ["s3:*"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role" "prod_web_role" {
+  name                = "prod_web_role"
+  assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
+  managed_policy_arns = [aws_iam_policy.s3_access.arn]
+}
+
+resource "aws_iam_instance_profile" "web_instance_profile" {
+  name = "web_instance_profile"
+  role = aws_iam_role.prod_web_role.name
+}
+
+
 # Create EC2
 resource "aws_instance" "web" {
   ami           = "ami-0c8e23f950c7725b9"
   instance_type = "t2.micro"
   availability_zone = "us-east-1a"
+  iam_instance_profile = aws_iam_instance_profile.web_instance_profile.name
   root_block_device {
     encrypted = true
     volume_type = "gp3"
