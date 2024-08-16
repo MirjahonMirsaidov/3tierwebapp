@@ -162,3 +162,5 @@ cython_debug/
 
 # Terraform
 terraform/.terraform/providers/
+terraform/ssh_key_pair.pem
+terraform/ssh_key_pair.pub
