@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: public.ecr.aws/a8p1y2a7/wr
+  ECR_REPOSITORY: 381492290017.dkr.ecr.us-east-1.amazonaws.com/wr
 
 permissions:
   id-token: write
