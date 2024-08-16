@@ -33,5 +33,5 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       run: |
         docker build -t wr --platform linux/amd64 .
-        docker tag wr:latest ECR_REPOSITORY:latest
-        docker push ECR_REPOSITORY:latest
+        docker tag wr:latest $ECR_REPOSITORY:latest
+        docker push $ECR_REPOSITORY:latest
