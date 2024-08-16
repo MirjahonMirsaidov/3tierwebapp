@@ -53,7 +53,7 @@ jobs:
         echo "$EC2_SSH_KEY" > ec2_key.pem
         chmod 600 ec2_key.pem
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ env.EC2_HOST }} << 'EOF'
-          docker login -u AWS -p $(aws ecr get-login-password --region $AWS_DEFAULT_REGION) ${{ env.ECR_REPOSITORY }}
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY }}
           docker pull ${{ env.ECR_REPOSITORY }}:latest
           docker stop my-container || true
           docker rm my-container || true
