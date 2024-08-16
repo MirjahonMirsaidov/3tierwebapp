@@ -32,12 +32,5 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build  --build-arg SECRET_KEY=${{ env.SECRET_KEY }} -t $ECR_REPOSITORY:latest .
-#									--build-arg SECRET_KEY=${{ env.SECRET_KEY }} \
-#									--build-arg DB_NAME=${{ env.DB_NAME }} \
-#									--build-arg DB_USER=${{ env.DB_USER }} \
-#									--build-arg DB_PASSWORD=${{ env.DB_PASSWORD }} \
-#									--build-arg DB_HOST=${{ env.DB_HOST }} \
-#									--build-arg DB_PORT=${{ env.DB_PORT }} \
-#									--build-arg REDIS_HOST=${{ env.REDIS_HOST }} \
+        docker build -t $ECR_REPOSITORY:latest .
         docker push $ECR_REPOSITORY:latest
