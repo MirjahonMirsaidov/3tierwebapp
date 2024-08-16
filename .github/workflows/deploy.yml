@@ -6,8 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REGISTRY: public.ecr.aws/a8p1y2a7
-  ECR_REPOSITORY: wr 
+  ECR_REPOSITORY: public.ecr.aws/a8p1y2a7/wr
 
 permissions:
   id-token: write
@@ -31,7 +30,10 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Check ECR repository
+      run: aws ecr-public describe-repositories --repository-names $ECR_REPOSITORY --region us-east-1
+
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker build -t $ECR_REPOSITORY:latest .
+        docker push $ECR_REPOSITORY:latest
