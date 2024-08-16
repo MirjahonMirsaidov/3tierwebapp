@@ -5,7 +5,8 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1  
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: public.ecr.aws/a8p1y2a7
   ECR_REPOSITORY: wr 
 
 permissions:
