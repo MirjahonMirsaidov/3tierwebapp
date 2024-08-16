@@ -49,8 +49,7 @@ jobs:
           host: 34.237.169.142
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          run: |
-									 docker login -u AWS -p $(aws ecr get-login-password --region $AWS_DEFAULT_REGION) ${{ env.ECR_REPOSITORY }}
+          run: docker login -u AWS -p $(aws ecr get-login-password --region $AWS_DEFAULT_REGION) ${{ env.ECR_REPOSITORY }}
 #		          docker pull ${{ env.ECR_REPOSITORY }}:latest
 #		          docker stop my-container || true
 #		          docker rm my-container || true
