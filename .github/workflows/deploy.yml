@@ -38,8 +38,8 @@ jobs:
 #        docker build -t $ECR_REPOSITORY:latest .
 #        docker push $ECR_REPOSITORY:latest
 	deploy:
-	    name: Deploy
-	    runs-on: ubuntu-latest
+    name: Deploy
+    runs-on: ubuntu-latest
 
 #	    steps:
 #	      - name: Checkout
