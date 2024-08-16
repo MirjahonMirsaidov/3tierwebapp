@@ -101,6 +101,12 @@ resource "aws_iam_instance_profile" "web_instance_profile" {
   role = aws_iam_role.prod_web_role.name
 }
 
+# Create SSH key pair
+resource "aws_key_pair" "my_key" {
+  key_name   = "my-key-pair"
+  public_key = file("${path.module}/ssh_key_pair.pub") # Path to your public key file
+}
+
 
 # Create EC2
 resource "aws_instance" "web" {
@@ -113,6 +119,7 @@ resource "aws_instance" "web" {
     volume_type = "gp3"
     volume_size = 20
   }
+  key_name = aws_key_pair.my_key.key_name
   
   network_interface {
     network_interface_id = aws_network_interface.prod_eni.id
