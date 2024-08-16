@@ -37,8 +37,9 @@ jobs:
 #      run: |
 #        docker build -t $ECR_REPOSITORY:latest .
 #        docker push $ECR_REPOSITORY:latest
-	deploy:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
