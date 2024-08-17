@@ -54,7 +54,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             echo "SECRET_KEY: ${{ env.SECRET_KEY }}"
-#            docker login -u AWS -p $(aws ecr get-login-password --region ${{ env.AWS_REGION }}) ${{ env.ECR_REPOSITORY }}
+            docker login -u AWS -p $(aws ecr get-login-password --region ${{ env.AWS_REGION }}) ${{ env.ECR_REPOSITORY }}
 #            docker pull ${{ env.ECR_REPOSITORY }}:latest
 #            docker stop webapp || true
 #            docker rm webapp || true
