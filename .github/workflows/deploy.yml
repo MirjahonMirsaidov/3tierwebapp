@@ -52,17 +52,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           run: |
             docker login -u AWS -p $(aws ecr get-login-password --region $AWS_DEFAULT_REGION) ${{ env.ECR_REPOSITORY }}
-#            docker pull ${{ env.ECR_REPOSITORY }}:latest
-#            docker stop my-container || true
-#            docker rm my-container || true
-#            docker run -d \
-#              --name my-container \
-#              -p 80:80 \
-#              -e SECRET_KEY=${{ env.SECRET_KEY }} \
-#              -e DB_NAME=${{ env.DB_NAME }} \
-#              -e DB_USER=${{ env.DB_USER }} \
-#              -e DB_PASSWORD=${{ env.DB_PASSWORD }} \
-#              -e DB_HOST=${{ env.DB_HOST }} \
-#              -e DB_PORT=${{ env.DB_PORT }} \
-#              -e REDIS_HOST=${{ env.REDIS_HOST }} \
-#              ${{ env.ECR_REPOSITORY }}:latest
+            docker pull ${{ env.ECR_REPOSITORY }}:latest
+            docker stop my-container || true
+            docker rm my-container || true
+            docker run -d \
+              --name my-container \
+              -p 80:80 \
+              -e SECRET_KEY=${{ env.SECRET_KEY }} \
+              -e DB_NAME=${{ env.DB_NAME }} \
+              -e DB_USER=${{ env.DB_USER }} \
+              -e DB_PASSWORD=${{ env.DB_PASSWORD }} \
+              -e DB_HOST=${{ env.DB_HOST }} \
+              -e DB_PORT=${{ env.DB_PORT }} \
+              -e REDIS_HOST=${{ env.REDIS_HOST }} \
+              ${{ env.ECR_REPOSITORY }}:latest
