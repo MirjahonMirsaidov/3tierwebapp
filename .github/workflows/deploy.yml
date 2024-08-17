@@ -53,10 +53,10 @@ jobs:
           script: |
             docker login -u AWS -p $(aws ecr get-login-password --region ${{ env.AWS_REGION }}) ${{ env.ECR_REPOSITORY }}
             docker pull ${{ env.ECR_REPOSITORY }}:latest
-            docker stop ${{ env.ECR_REPOSITORY }} || true
-            docker rm ${{ env.ECR_REPOSITORY }} || true
+            docker stop webapp || true
+            docker rm webapp || true
             docker run -d \
-              --name my-container \
+              --name webapp \
               -p 80:80 \
               -e SECRET_KEY=${{ env.SECRET_KEY }} \
               -e DB_NAME=${{ env.DB_NAME }} \
