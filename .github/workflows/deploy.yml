@@ -40,7 +40,7 @@ jobs:
         docker push $ECR_REPOSITORY:latest
   deploy:
     runs-on: ubuntu-latest
-    depends-on: build-and-push
+    depend-on: build-and-push
 
     steps:
       - name: Checkout
