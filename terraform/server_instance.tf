@@ -90,10 +90,31 @@ resource "aws_iam_policy" "s3_access" {
   })
 }
 
+resource "aws_iam_policy" "ecr_access" {
+  name = "ecr-access-policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
 resource "aws_iam_role" "prod_web_role" {
   name                = "prod_web_role"
   assume_role_policy  = data.aws_iam_policy_document.instance_assume_role_policy.json
-  managed_policy_arns = [aws_iam_policy.s3_access.arn]
+  managed_policy_arns = [aws_iam_policy.s3_access.arn, aws_iam_policy.ecr_access.arn]
 }
 
 resource "aws_iam_instance_profile" "web_instance_profile" {
@@ -120,14 +141,14 @@ resource "aws_instance" "web" {
     volume_size = 20
   }
   key_name = aws_key_pair.my_key.key_name
-  
+
   network_interface {
     network_interface_id = aws_network_interface.prod_eni.id
     device_index         = 0
   }
-  
+
   user_data = file("${path.module}/user_data.sh")
-  
+
   tags = {
     Name = "web"
   }
