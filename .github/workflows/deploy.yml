@@ -52,7 +52,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker login -u AWS -p $(aws ecr get-login-password --region $AWS_DEFAULT_REGION) ${{ env.ECR_REPOSITORY }}
-            docker pull ${{ env.ECR_REPOSITORY }}:latest
+#            docker pull ${{ env.ECR_REPOSITORY }}:latest
 #            docker stop my-container || true
 #            docker rm my-container || true
 #            docker run -d \
