@@ -59,7 +59,7 @@ jobs:
             docker rm webapp || true
             docker run -d \
               --name webapp \
-              -p 80:80 \
+              -p 80:8000 \
               -e "SECRET_KEY=${{ secrets.SECRET_KEY }}" \
               -e DB_NAME=${{ secrets.DB_NAME }} \
               -e DB_USER=${{ secrets.DB_USER }} \
